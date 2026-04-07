@@ -3,6 +3,7 @@
 ## Status
 
 - Status: Draft
+- Implementation: Required
 - Scope: public escrow declaration for swap compatibility and execution assumptions
 - Related:
   - [MIP-01-protocol-overview.md](./MIP-01-protocol-overview.md)

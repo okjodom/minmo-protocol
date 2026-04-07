@@ -3,6 +3,7 @@
 ## Status
 
 - Status: Draft
+- Implementation: Optional
 - Scope: optional operator-signed attestations about agent performance and trust signals
 - Related:
   - [MIP-01-protocol-overview.md](./MIP-01-protocol-overview.md)

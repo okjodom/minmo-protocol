@@ -3,6 +3,7 @@
 ## Status
 
 - Status: Draft
+- Implementation: Required
 - Scope: agent discovery and public capability declaration
 - Related:
   - [MIP-01-protocol-overview.md](./MIP-01-protocol-overview.md)

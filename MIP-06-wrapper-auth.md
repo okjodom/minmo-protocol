@@ -3,6 +3,7 @@
 ## Status
 
 - Status: Draft
+- Implementation: Recommended
 - Scope: operator-layer authentication and account wrapper model over canonical Nostr identity
 - Related:
   - [MIP-01-protocol-overview.md](./MIP-01-protocol-overview.md)

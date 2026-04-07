@@ -3,6 +3,7 @@
 ## Status
 
 - Status: Draft
+- Implementation: Recommended
 - Scope: operator-layer automation bridge for Nostr-native swaps
 - Related:
   - [MIP-01-protocol-overview.md](./MIP-01-protocol-overview.md)

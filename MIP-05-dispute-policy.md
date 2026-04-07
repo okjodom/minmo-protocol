@@ -3,6 +3,7 @@
 ## Status
 
 - Status: Draft
+- Implementation: Required
 - Scope: operator-layer dispute and timeout policy for Nostr-native swaps
 - Related:
   - [MIP-01-protocol-overview.md](./MIP-01-protocol-overview.md)
