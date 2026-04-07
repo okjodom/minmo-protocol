@@ -3,6 +3,7 @@
 ## Status
 
 - Status: Draft
+- Implementation: Recommended
 - Scope: operator-layer indexing, filtering, ranking, and snapshot behavior for Nostr-native protocol data
 - Related:
   - [MIP-01-protocol-overview.md](./MIP-01-protocol-overview.md)

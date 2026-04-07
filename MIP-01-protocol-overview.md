@@ -3,6 +3,7 @@
 ## Status
 
 - Status: Draft
+- Implementation: Informational
 - Scope: overall architecture and shared conventions for the protocol family
 - Depends on:
   - NIP-01

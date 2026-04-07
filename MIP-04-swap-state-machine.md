@@ -3,6 +3,7 @@
 ## Status
 
 - Status: Draft
+- Implementation: Required
 - Scope: swap execution events and append-only lifecycle
 - Related:
   - [MIP-01-protocol-overview.md](./MIP-01-protocol-overview.md)
