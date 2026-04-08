@@ -11,6 +11,7 @@
   - NIP-24
   - NIP-42
   - NIP-46
+  - NIP-59
   - NIP-65
   - NIP-89
   - NIP-98
@@ -61,6 +62,7 @@ This document defines the architecture and shared conventions for the Minmo Nost
    - transition log
    - evidence
    - dispute lifecycle
+   - companion private message lane for non-public settlement payloads
 
 3. **Operator overlays**
    - wrapper auth
@@ -88,6 +90,7 @@ Everything else in this protocol family is layered on top of Nostr, including:
 - agent definition events
 - escrow descriptor events
 - swap state events
+- companion Gift Wrap message flows for private swap payloads
 - dispute semantics
 - operator attestations and overlays
 
@@ -117,16 +120,35 @@ For early deployment, implementations should strongly prefer:
 - escrow declarations
 - swap root event existence
 - state transitions
+- public evidence references
 - public dispute outcomes
 
 ### Often private or minimized
 
 - exact balances
 - sensitive KYC data
+- payment instructions
+- bank account details
+- Lightning invoices and settlement secrets
 - raw documents or screenshots
 - provider secrets
 - internal moderation notes
 - private scoring logic
+
+## Private Message Lane
+
+Some swap payloads are necessary for execution but inappropriate for public publication.
+
+This protocol family therefore allows a companion private message lane using Nostr Gift Wrap for:
+
+- invoices
+- bank details
+- payout instructions
+- delivery acknowledgements
+- raw evidence payloads
+
+The public swap state machine remains canonical.
+The private lane carries non-public execution material and may be referenced by public events through hashes, opaque identifiers, consent records, or encrypted payload references.
 
 ## Open Questions
 
