@@ -45,6 +45,67 @@ Minimum expected fields:
 - `reference_format`
 - `updated_at`
 
+## Canonical Subtype: `lightning_hold_invoice`
+
+`lightning_hold_invoice` is a canonical escrow subtype for swaps that use a Lightning hold invoice as the escrow lock.
+
+When `escrow_type` is `lightning_hold_invoice`, the descriptor SHOULD include the following additional fields:
+
+- `invoice_network`
+- `invoice_asset`
+- `invoice_currency`
+- `invoice_amount_rule`
+- `hold_expiry_rule`
+- `settle_authority`
+- `cancel_authority`
+- `release_trigger`
+- `refund_trigger`
+- `preimage_visibility`
+- `payout_network`
+
+### Field Intent
+
+- `invoice_network`
+  - Lightning network on which the hold invoice is issued
+- `invoice_asset`
+  - asset locked by the hold invoice, usually bitcoin-denominated Lightning liquidity
+- `invoice_currency`
+  - invoice denomination convention used by the escrow provider
+- `invoice_amount_rule`
+  - whether the invoice amount is exact, bounded, or derived from the swap request
+- `hold_expiry_rule`
+  - timeout rule for unpaid or unresolved hold invoices
+- `settle_authority`
+  - which participant or operator may settle the invoice
+- `cancel_authority`
+  - which participant or operator may cancel the invoice
+- `release_trigger`
+  - public condition required before settlement is valid
+- `refund_trigger`
+  - public condition required before cancellation or refund is valid
+- `preimage_visibility`
+  - whether the preimage is expected to remain operator-local, participant-visible, or public by reference only
+- `payout_network`
+  - expected payout path after successful release
+
+### Lifecycle Rules
+
+For `lightning_hold_invoice`, the escrow lifecycle SHOULD follow these phases:
+
+1. invoice issued
+2. invoice held
+3. release condition satisfied
+4. settled or canceled
+
+The public swap state machine SHOULD record:
+
+- when the hold invoice becomes the active escrow reference
+- when funding is confirmed
+- when release authority is exercised
+- when cancellation or refund authority is exercised
+
+Raw invoice payloads, settlement secrets, and other sensitive Lightning material SHOULD stay in the companion private message lane unless explicit disclosure is required.
+
 ## Selection Rules
 
 Every agent profile should declare:
@@ -56,4 +117,4 @@ That declared escrow must be usable without out-of-band negotiation at swap time
 
 ## Open Question
 
-Different escrow mechanisms may eventually need subtype-specific schemas rather than one generic descriptor shape.
+Additional escrow mechanisms may still need their own canonical subtype-specific schemas beyond `lightning_hold_invoice`.

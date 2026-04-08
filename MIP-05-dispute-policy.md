@@ -46,6 +46,8 @@ This document defines how an operator should resolve disputes and timeouts for s
 - operator note
 - external confirmation reference
 - redacted document hash
+- encrypted payload reference
+- participant consent record
 
 ## Resolution Modes
 
@@ -69,8 +71,24 @@ An operator may resolve disputes by:
 
 ### Usually private
 
+- raw invoices
+- bank details
 - raw screenshots
 - internal notes
 - private documents
 - internal scoring logic
 - third-party payloads that contain sensitive data
+
+## Disclosure Rules
+
+Dispute handling SHOULD follow a private-by-default evidence rule.
+
+Recommended disclosure order:
+
+1. reference only
+2. redacted excerpt
+3. full artifact by participant consent
+4. full artifact by explicit dispute-policy necessity
+
+Operators SHOULD disclose the minimum evidence needed to justify the outcome.
+When raw evidence is disclosed, the public protocol surface SHOULD prefer a reference to the disclosure act, consent record, or redacted derivative rather than unrestricted republication of the full artifact.

@@ -20,10 +20,12 @@ A swap is represented by:
 
 - one immutable root event that defines the requested trade
 - a sequence of immutable transition events that advance the swap state
+- optional private Gift Wrap messages that carry non-public execution payloads
 - optional replaceable snapshot events for fast lookup
 
 The append-only transition log is the source of protocol history.
 The snapshot is an optimization.
+The private message lane is a companion channel rather than an alternate source of truth.
 
 ## Event Types
 
@@ -70,6 +72,8 @@ Examples:
 - payout proof
 - escrow funding proof
 - redacted external settlement proof
+- encrypted invoice reference
+- consented disclosure reference
 
 ### Dispute
 
@@ -92,12 +96,51 @@ Optional human-readable operational note tied to a swap.
 
 Provides a replaceable materialized view of current state for fast lookup.
 
+## Companion Private Message Lane
+
+Some swap execution payloads SHOULD NOT be published in raw form on the public state machine.
+
+Minmo therefore permits a companion private message lane using Nostr Gift Wrap for:
+
+- invoices
+- bank account details
+- payout instructions
+- delivery acknowledgements
+- sensitive evidence payloads
+
+The private message lane is for transport of non-public payloads.
+It does not replace the public swap request, transition, evidence, dispute, or snapshot events.
+
+### Private Lane Rules
+
+- private messages SHOULD be correlated to a swap by `swap_id` or a deterministic reference derived from it
+- private messages SHOULD be versioned
+- private messages MAY include hashes or opaque references that are later cited by public evidence events
+- acknowledgements exchanged in the private lane MAY be summarized publicly through transition or note events
+- implementations SHOULD minimize the exposure of payer details, banking coordinates, invoice secrets, and payout destinations
+
+## Evidence Handling
+
+Public evidence events SHOULD default to reference-style publication rather than raw payload disclosure.
+
+Recommended evidence publication modes:
+
+- reveal by reference
+  - publish a hash, opaque pointer, or encrypted payload reference without exposing the underlying artifact
+- reveal by consent
+  - disclose raw or decryptable evidence only when the relevant participant or policy trigger authorizes it
+- reveal by necessity
+  - disclose the minimum subset needed for dispute resolution or settlement finality
+
+Raw invoices, bank details, screenshots, and settlement secrets SHOULD remain in the private message lane unless a dispute policy or escrow policy requires targeted disclosure.
+
 ## State Machine Properties
 
 - the request event is immutable
 - every transition is append-only
 - sequence coherence matters
 - immutable history is authoritative over snapshots
+- private Gift Wrap payloads are supplementary and never override public history
 
 ## Participant Responsibilities
 
@@ -111,7 +154,7 @@ Provides a replaceable materialized view of current state for fast lookup.
 
 - reference a valid current agent definition
 - select a declared escrow descriptor
-- publish required settlement instructions
+- provide required settlement instructions through the appropriate public or private lane
 - submit payment proof when required
 
 ### Escrow operator
@@ -119,3 +162,4 @@ Provides a replaceable materialized view of current state for fast lookup.
 - expose enough public information to be referenced in protocol flows
 - publish or validate settlement transitions
 - publish resolution transitions when acting as arbiter
+- avoid unnecessary publication of raw private settlement payloads
