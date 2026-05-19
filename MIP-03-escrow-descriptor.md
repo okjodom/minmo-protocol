@@ -20,6 +20,21 @@ This document defines the public escrow descriptor event referenced by agent def
 - addressable
 - `d` tag: stable identifier for one escrow configuration
 
+## Authoring Identity
+
+The event `pubkey` identifies the escrow provider or operator responsible for
+the declared escrow configuration.
+
+An escrow descriptor is an escrow-provider declaration, not a Minmo agent
+capability record. A Minmo agent may author an escrow descriptor only when that
+same Nostr identity is also the escrow provider or operator for the declared
+mechanism.
+
+Agent definitions and swaps should reference escrow descriptors by Nostr
+address:
+
+- `30361:<escrow-provider-pubkey>:<descriptor-d-tag>`
+
 ## Function
 
 The escrow descriptor tells counterparties and operators:

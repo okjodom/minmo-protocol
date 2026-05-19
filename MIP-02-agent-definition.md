@@ -35,6 +35,7 @@ An agent is discoverable through:
 - `relay`
 - `a`
   - reference to the default escrow descriptor event
+  - normally `30361:<escrow-provider-pubkey>:<descriptor-d-tag>`
 
 ## Recommended Tags
 
@@ -70,6 +71,18 @@ The agent definition should describe:
 - regions or markets served
 - min and max limits
 - pricing or margin policy references
+
+## Escrow Descriptor References
+
+A Minmo agent definition selects usable escrow descriptors; it does not become
+the canonical author of those descriptor rules.
+
+The `a` tag for the default escrow descriptor should reference the descriptor
+published by the escrow provider or operator. The referenced pubkey is normally
+the escrow provider or operator pubkey.
+
+If the Minmo agent is also the escrow provider or operator, the same pubkey may
+author both the agent definition and the escrow descriptor.
 
 ## Multiple Profiles
 

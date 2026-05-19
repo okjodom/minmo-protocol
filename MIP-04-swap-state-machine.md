@@ -42,6 +42,8 @@ Required content:
 - `agent`
 - `customer`
 - `escrow_reference`
+  - selected escrow descriptor address, normally
+    `30361:<escrow-provider-pubkey>:<descriptor-d-tag>`
 - `fiat`
 - `bitcoin`
 - `expiry`
